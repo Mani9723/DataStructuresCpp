@@ -7,10 +7,14 @@ using namespace std;
 int main()
 {
 	
-	std::array<int, 4> A = { 10,20,30,40 };
-	std::array<int, 4> B = A; //copy array A into array B
+	ArrayList list;
+	for (int i = 0; i < 50; i++) {
+		list.add(i*i);
+		cout << list.get(i) << "\n";
+	}
 
-	cout << B[1];
+	cout << "List size: " << list.size() << "\n";
+	cout << "List capacity: " << list.capacity() << "\n";
 
 	return 0;
 }
