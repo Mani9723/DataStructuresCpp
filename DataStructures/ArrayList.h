@@ -148,6 +148,9 @@ int ArrayList::remove(int index)
 	return oldItem;
 }
 
-
+string ArrayList::toString()
+{
+	return "Arraylist with  size" + this->num_of_elements;
+}
 
 
