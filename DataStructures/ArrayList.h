@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -65,6 +66,8 @@ public:
 	void add(int index, int value);
 	/*Appends another list*/
 	void addAll(ArrayList<T> &list);
+	/*Inserts a list at an index*/
+	void addAll(ArrayList<T>& list, int index);
 	/*Removes a value at an index*/
 	int remove(int index);
 	/*Creates a sublist within the given inclusive bounds*/
@@ -124,6 +127,7 @@ template<class T>
 ArrayList<T>::~ArrayList()
 {
 	delete[] storage;
+	cout << "Destructor Called";
 }
 
 /**
@@ -335,6 +339,30 @@ void ArrayList<T>::addAll(ArrayList<T> &list)
 	}
 }
 
+/*
+Inserts the whole list starting at the given index
+*/
+template<class T>
+void ArrayList<T>::addAll(ArrayList<T>& list, int index)
+{
+	validate_range(index);
+	if (index == this->num_of_elements) {
+		this.addAll(list);
+	}
+	else if (index == 0) {
+		list.addAll(this->storage);
+		this = list;
+		list.~ArrayList;
+	}
+	else {
+		int elements = list.size();
+		for (int i = 0; i < elements; i++) {
+			this->add(index, list[i]);
+			index++;
+		}
+	}
+}
+
 /**
  * Removes the value at the requested index.
  * The gap is filled in with the remaining values.
@@ -399,10 +427,14 @@ T* ArrayList<T>::toArray()
 	return array_copy;
 }
 
+/*
+Clears the list
+*/
 template<class T>
 inline void ArrayList<T>::clear()
 {
-	this->~ArrayList;
+	delete[] storage;
+
 }
 
 /**
