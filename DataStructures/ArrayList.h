@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
-	Basic C++ implementation of Arraylist
+	C++ implementation of Arraylist
 */
 
 template<class T>
