@@ -43,8 +43,44 @@ int main()
 	if (ida.remove(0) == 0 && ida.remove(0) == -20 && ida.remove(2) == 100
 		&& ida.size() == 2 && ida.capacity() == 4) {
 	//	System.out.println("Yay 4");
-		cout << "Yay 4\n";
+		cout << "Yay 4\n\n";
 	}
+
+	ArrayList<int> list2;
+	list2.add(4);
+	list2.add(5);
+	list2.add(6);
+	list2.add(7);
+	list2.add(8);
+	list2.add(9);
+	list2.add(42);
+	list2.add(4234);
+
+	cout << list2.contains(7);
+
+
+	//for (int i = 0; i < ida.size(); i++) {
+	//	cout << "ida: " <<ida.get(i) << "\n";
+	//}
+
+	//for (int i = 0; i < list2.size(); i++) {
+	//	cout << "list2: " << list2.get(i) << "\n";
+	//}
+	//cout << "\n\n";
+	//ArrayList<int> list3(list2);
+
+	//for (int i = 0; i < list3.size(); i++) {
+	//	cout << "list3: " << list3.get(i) << "\n";
+	//}
+
+	//list2.add(76234);
+	//for (int i = 0; i < list2.size(); i++) {
+	//	cout << "list2: " << list2.get(i) << "\n";
+	//}
+	//cout << "\n\n";
+	//for (int i = 0; i < list3.size(); i++) {
+	//	cout << "list3: " << list3.get(i) << "\n";
+	//}
 
 	return 0;
 }

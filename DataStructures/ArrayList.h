@@ -35,20 +35,24 @@ private:
 
 
 public:
-	/**
-	 * This default constructor sets the capacity of the dynamic {@literal array -> 2}.
-	 * Currently an empty array.
-	 */
+	/*Default constructor*/
 	ArrayList();
-	// Destructor
-	~ArrayList();
-	// User defined constructor
+	/* User defined constructor*/
 	ArrayList(int init_capacity);
-
+	/*User defined constructor*/
+	ArrayList(ArrayList<T>& list);
+	/* Destructor*/
+	~ArrayList();
 	/*Returns the actual of the list*/
 	int size();
 	/*Returns the total capacity of the list*/
 	int capacity();
+	/*Returns the index of an element*/
+	int index_of(T value);
+	/*Returns if the list is empty*/
+	bool isEmpty();
+	/*Searches the list*/
+	bool contains(T value);
 	/*Sets value at a particular index*/
 	int set(int index, int value);
 	/*Returns a value from an index*/
@@ -57,8 +61,14 @@ public:
 	bool add(int value);
 	/*Inserts a value at an index*/
 	void add(int index, int value);
+	/*Appends another list*/
+	void addAll(ArrayList<T> &list);
 	/*Removes a value at an index*/
 	int remove(int index);
+	/*Creates a sublist within the given inclusive bounds*/
+	ArrayList<T> sublist(int src, int dest);
+	/*Returns an array representation*/
+	T* toArray();
 	/*ToString representation*/
 	string toString();
 };
@@ -89,6 +99,20 @@ ArrayList<T>::ArrayList(int init_capacity)
 	length_of_storage = init_capacity;
 }
 
+template<class T>
+ArrayList<T>::ArrayList(ArrayList<T>& list)
+{
+	num_of_elements = list.size();
+	length_of_storage = list.capacity() << 1;
+	storage = new T[length_of_storage];
+	for (int i = 0; i < num_of_elements; i++) {
+		storage[i] = list.get(i);
+	}
+}
+
+/*
+Destructor
+*/
 template<class T>
 ArrayList<T>::~ArrayList()
 {
@@ -155,6 +179,45 @@ template<class T>
 int ArrayList<T>::capacity()
 {
 	return this->length_of_storage;
+}
+
+/*
+This function returns the first known index of an element
+*/
+template<class T>
+int ArrayList<T>::index_of(T value)
+{
+	if (value == NULL) {
+		for (int i = 0; i < this->num_of_elements; i++) {
+			if (this->storage[i] == NULL) {
+				return i;
+			}
+		}
+	}
+	for (int i = 0; i < this->num_of_elements; i++) {
+		if (this->storage[i] == value) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+/*
+Returns true if the list is empty
+*/
+template<class T>
+bool ArrayList<T>::isEmpty()
+{
+	return this->size == 0;
+}
+
+/*
+Checks the list if it contains a specific value
+*/
+template<class T>
+bool ArrayList<T>::contains(T value)
+{
+	return index_of(value) != -1;
 }
 
 /**
@@ -231,6 +294,18 @@ void ArrayList<T>::add(int index, int value)
 		++this->num_of_elements;
 	}
 }
+/*
+Appends a whole list
+*/
+template<class T>
+void ArrayList<T>::addAll(ArrayList<T> &list)
+{
+	this->num_of_elements += list.size();
+	this->length_of_storage += list.capacity();
+	for (int i = 0; i < list.size(); i++) {
+		this->add(list.get(i));
+	}
+}
 
 /**
  * Removes the value at the requested index.
@@ -262,6 +337,40 @@ int ArrayList<T>::remove(int index)
 	return oldItem;
 }
 
+/*
+Creates a child list from the parent list within the given 
+inclusive bounds
+*/
+template<class T>
+ArrayList<T> ArrayList<T>::sublist(int src, int dest)
+{
+	validate_range(src);
+	validate_range(dest);
+
+	if (src == dest)
+		return ArrayList<T> list;
+
+	ArrayList<T> new_list((dest - src) << 1);
+
+	for (int i = src; i <= dest; i++) {
+		new_list.add(this->storage[i]);
+	}
+	return new_list;
+}
+
+/*
+Converts the ArrayList to an array
+*/
+template<class T>
+T* ArrayList<T>::toArray()
+{
+	T* array_copy = new T[num_of_elements];
+	for (int i = 0; i < this->num_of_elements; i++) {
+		array_copy[i] = this->storage[i];
+	}
+	return array_copy;
+}
+
 /**
 	return string representation of DynamicArray
 	*/
@@ -270,5 +379,3 @@ string ArrayList<T>::toString()
 {
 	return "Arraylist with  size" + this->num_of_elements;
 }
-
-
