@@ -5,9 +5,9 @@ using namespace std;
 
 /**
 	Basic C++ implementation of Arraylist
-	Its and integer arraylist.
 */
 
+template<class T>
 class ArrayList
 {
 private:
@@ -26,7 +26,7 @@ private:
 	/**
 	 * The generic array.
 	 */
-	int* storage;
+	T* storage;
 
 	// Reallocates the array
 	int* grow_array(bool halve);
@@ -39,25 +39,11 @@ public:
 	 * This default constructor sets the capacity of the dynamic {@literal array -> 2}.
 	 * Currently an empty array.
 	 */
-	ArrayList() {
-		storage = new int[INITCAP];
-		num_of_elements = 0;
-		length_of_storage = INITCAP;
-	}
-	/**
-	 * User defined constructor that sets the input value as the capacity of the array.
-	 * Throws an IllegalArgumentException if the input is less than 1.
-	 *
-	 * @param init_capacity capacity of the array
-	 */
-	ArrayList(int init_capacity) {
-		if (init_capacity < 1) {
-			throw "Initial Capacity cannot be less than 1";
-		}
-		storage = new int[init_capacity];
-		num_of_elements = 0;
-		length_of_storage = init_capacity;
-	}
+	ArrayList();
+	// Destructor
+	~ArrayList();
+	// User defined constructor
+	ArrayList(int init_capacity);
 
 	/*Returns the actual of the list*/
 	int size();
@@ -77,6 +63,37 @@ public:
 	string toString();
 };
 
+/**
+	 * This default constructor sets the capacity of the dynamic {@literal array -> 2}.
+	 * Currently an empty array.
+	 */
+template<class T>
+ArrayList<T>::ArrayList()
+{
+	storage = new int[INITCAP];
+	num_of_elements = 0;
+	length_of_storage = INITCAP;
+}
+
+/**
+ * User defined constructor that sets the input value as the capacity of the array.
+ * Throws an IllegalArgumentException if the input is less than 1.
+ *
+ * @param init_capacity capacity of the array
+ */
+template<class T>
+ArrayList<T>::ArrayList(int init_capacity)
+{
+	storage = new int[init_capacity];
+	num_of_elements = 0;
+	length_of_storage = init_capacity;
+}
+
+template<class T>
+ArrayList<T>::~ArrayList()
+{
+	delete[] storage;
+}
 
 /**
  * Checks if the given range is positve numbers and that.
@@ -84,7 +101,8 @@ public:
  *
  * @param index - requested index
  */
-void ArrayList::validate_range(int index)
+template<class T>
+void ArrayList<T>::validate_range(int index)
 {
 	if (index < 0 || index > this->length_of_storage) {
 		throw "Invalid Index";
@@ -99,7 +117,8 @@ void ArrayList::validate_range(int index)
  * @param halve  true if size/2; false if size*2
  * @return new array pointer
  */
-int* ArrayList::grow_array(bool halve)
+template<class T>
+int* ArrayList<T>::grow_array(bool halve)
 {
 	if (halve) {
 		this->length_of_storage = this->length_of_storage >> 1;
@@ -122,7 +141,8 @@ int* ArrayList::grow_array(bool halve)
  * Access the total number of elements in the array.
  * @return number of elements
  */
-int ArrayList::size()
+template<class T>
+int ArrayList<T>::size()
 {
 	return this->num_of_elements;
 }
@@ -131,7 +151,8 @@ int ArrayList::size()
  * Access the overall size of the array.
  * @return capacity
  */
-int ArrayList::capacity()
+template<class T>
+int ArrayList<T>::capacity()
 {
 	return this->length_of_storage;
 }
@@ -143,7 +164,8 @@ int ArrayList::capacity()
  * @param value  value to be inserted
  * @return original value at the index
  */
-int ArrayList::set(int index, int value)
+template<class T>
+int ArrayList<T>::set(int index, int value)
 {
 	validate_range(index);
 	int oldItem = storage[index];
@@ -156,7 +178,8 @@ int ArrayList::set(int index, int value)
  * @param index location
  * @return array[index]
  */
-int ArrayList::get(int index)
+template<class T>
+int ArrayList<T>::get(int index)
 {
 	validate_range(index);
 	return storage[index];
@@ -169,7 +192,8 @@ int ArrayList::get(int index)
  * @param value insertion value
  * @return true if successful
  */
-bool ArrayList::add(int value)
+template<class T>
+bool ArrayList<T>::add(int value)
 {
 	if (this->num_of_elements == this->length_of_storage)
 	{
@@ -187,7 +211,8 @@ bool ArrayList::add(int value)
  * @param index insertion point
  * @param value value to be inserted
  */
-void ArrayList::add(int index, int value)
+template<class T>
+void ArrayList<T>::add(int index, int value)
 {
 	validate_range(index);
 
@@ -213,7 +238,8 @@ void ArrayList::add(int index, int value)
  * @param index position of the value
  * @return old value.
  */
-int ArrayList::remove(int index)
+template<class T>
+int ArrayList<T>::remove(int index)
 {
 	validate_range(index);
 	int oldItem = this->storage[index];
@@ -239,7 +265,8 @@ int ArrayList::remove(int index)
 /**
 	return string representation of DynamicArray
 	*/
-string ArrayList::toString()
+template<class T>
+string ArrayList<T>::toString()
 {
 	return "Arraylist with  size" + this->num_of_elements;
 }

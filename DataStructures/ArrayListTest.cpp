@@ -7,11 +7,11 @@ using namespace std;
 int main()
 {
 	
-	ArrayList ida;
+	ArrayList<int> ida;
 	/*for (int i = 0; i < 50; i++) {
 		list.add(i*i);
 		cout << list.get(i) << "\n";
-	}
+	}s
 
 	cout << "List size: " << list.size() << "\n";
 	cout << "List capacity: " << list.capacity() << "\n";*/
