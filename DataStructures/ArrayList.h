@@ -59,13 +59,21 @@ public:
 		length_of_storage = init_capacity;
 	}
 
+	/*Returns the actual of the list*/
 	int size();
+	/*Returns the total capacity of the list*/
 	int capacity();
+	/*Sets value at a particular index*/
 	int set(int index, int value);
+	/*Returns a value from an index*/
 	int get(int index);
+	/*Appends a value*/
 	bool add(int value);
+	/*Inserts a value at an index*/
 	void add(int index, int value);
+	/*Removes a value at an index*/
 	int remove(int index);
+	/*ToString representation*/
 	string toString();
 };
 
@@ -84,13 +92,13 @@ void ArrayList::validate_range(int index)
 }
 
 /**
-	 * Adjusts the capacity of the array.
-	 * The parameter determines if the capacity
-	 * needs to be increased or decreased.
-	 *
-	 * @param halve  true if size/2; false if size*2
-	 * @return new array pointer
-	 */
+ * Adjusts the capacity of the array.
+ * The parameter determines if the capacity
+ * needs to be increased or decreased.
+ *
+ * @param halve  true if size/2; false if size*2
+ * @return new array pointer
+ */
 int* ArrayList::grow_array(bool halve)
 {
 	if (halve) {
@@ -111,30 +119,30 @@ int* ArrayList::grow_array(bool halve)
 }
 
 /**
-	 * Access the total number of elements in the array.
-	 * @return number of elements
-	 */
+ * Access the total number of elements in the array.
+ * @return number of elements
+ */
 int ArrayList::size()
 {
 	return this->num_of_elements;
 }
 
 /**
-	 * Access the overall size of the array.
-	 * @return capacity
-	 */
+ * Access the overall size of the array.
+ * @return capacity
+ */
 int ArrayList::capacity()
 {
 	return this->length_of_storage;
 }
 
 /**
-	 * Overwrites the value at the provided index with a new value.
-	 *
-	 * @param index  index to be modified
-	 * @param value  value to be inserted
-	 * @return original value at the index
-	 */
+ * Overwrites the value at the provided index with a new value.
+ *
+ * @param index  index to be modified
+ * @param value  value to be inserted
+ * @return original value at the index
+ */
 int ArrayList::set(int index, int value)
 {
 	validate_range(index);
@@ -144,10 +152,10 @@ int ArrayList::set(int index, int value)
 }
 
 /**
-	 * Returns the value at the index.
-	 * @param index location
-	 * @return array[index]
-	 */
+ * Returns the value at the index.
+ * @param index location
+ * @return array[index]
+ */
 int ArrayList::get(int index)
 {
 	validate_range(index);
@@ -155,12 +163,12 @@ int ArrayList::get(int index)
 }
 
 /**
-	 * Appends a value at the end of the array.
-	 * Automatically increases the capacity if necessary.
-	 *
-	 * @param value insertion value
-	 * @return true if successful
-	 */
+ * Appends a value at the end of the array.
+ * Automatically increases the capacity if necessary.
+ *
+ * @param value insertion value
+ * @return true if successful
+ */
 bool ArrayList::add(int value)
 {
 	if (this->num_of_elements == this->length_of_storage)
