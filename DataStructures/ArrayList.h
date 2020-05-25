@@ -48,6 +48,7 @@ public:
 	int size();
 	/*Returns the total capacity of the list*/
 	int capacity();
+	/*Ensures that the list can hold a certain amount of elements*/
 	/*Returns the index of an element*/
 	int index_of(T value);
 	/*Returns the last known index of an element*/
@@ -70,8 +71,12 @@ public:
 	void addAll(ArrayList<T>& list, int index);
 	/*Removes a value at an index*/
 	int remove(int index);
+	/*Removes between given bounds*/
+	void remove_range(int start, int end);
 	/*Creates a sublist within the given inclusive bounds*/
 	ArrayList<T> sublist(int src, int dest);
+	/*Returns the sub array with a given range*/
+	T* sub_array(int start, int end);
 	/*Returns an array representation*/
 	T* toArray();
 	/*Clears the list*/
@@ -191,6 +196,7 @@ int ArrayList<T>::capacity()
 {
 	return this->length_of_storage;
 }
+
 
 /*
 This function returns the first known index of an element
@@ -392,6 +398,21 @@ int ArrayList<T>::remove(int index)
 	}
 	return oldItem;
 }
+/*
+Removes the value between a given range
+Inclusive start, exclusive end
+*/
+template<class T>
+void ArrayList<T>::remove_range(int start, int end)
+{
+	validate_range(start);
+	validate_range(end);
+
+	for (int i = start; i < end; i++) {
+		this->remove(i);
+	}
+
+}
 
 /*
 Creates a child list from the parent list within the given 
@@ -415,6 +436,30 @@ ArrayList<T> ArrayList<T>::sublist(int src, int dest)
 }
 
 /*
+Returns the sub array within a given range
+*/
+template<class T>
+T* ArrayList<T>::sub_array(int start, int end)
+{
+	validate_range(start);
+	validate_range(end);
+
+	if (!(end < start)) {
+		if (start == 0 && end == num_of_elements) {
+			return toArray();
+		}
+		else {
+			T* array = new T[end - start];
+			for (int i = start; i < end; i++) {
+				array[i] = this->storage[i];
+			}
+			return array;
+		}
+	}
+	return NULL;
+}
+
+/*
 Converts the ArrayList to an array
 */
 template<class T>
@@ -434,7 +479,6 @@ template<class T>
 inline void ArrayList<T>::clear()
 {
 	delete[] storage;
-
 }
 
 /**
