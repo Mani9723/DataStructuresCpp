@@ -69,6 +69,8 @@ public:
 	ArrayList<T> sublist(int src, int dest);
 	/*Returns an array representation*/
 	T* toArray();
+	/*Clears the list*/
+	void clear();
 	/*ToString representation*/
 	string toString();
 };
@@ -99,6 +101,9 @@ ArrayList<T>::ArrayList(int init_capacity)
 	length_of_storage = init_capacity;
 }
 
+/*
+Constructor that initializes to provided list
+*/
 template<class T>
 ArrayList<T>::ArrayList(ArrayList<T>& list)
 {
@@ -348,7 +353,7 @@ ArrayList<T> ArrayList<T>::sublist(int src, int dest)
 	validate_range(dest);
 
 	if (src == dest)
-		return ArrayList<T> list;
+		return NULL;
 
 	ArrayList<T> new_list((dest - src) << 1);
 
@@ -369,6 +374,12 @@ T* ArrayList<T>::toArray()
 		array_copy[i] = this->storage[i];
 	}
 	return array_copy;
+}
+
+template<class T>
+inline void ArrayList<T>::clear()
+{
+	this->~ArrayList;
 }
 
 /**
