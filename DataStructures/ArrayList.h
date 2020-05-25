@@ -49,6 +49,8 @@ public:
 	int capacity();
 	/*Returns the index of an element*/
 	int index_of(T value);
+	/*Returns the last known index of an element*/
+	int last_index_of(T value);
 	/*Returns if the list is empty*/
 	bool isEmpty();
 	/*Searches the list*/
@@ -200,6 +202,27 @@ int ArrayList<T>::index_of(T value)
 		}
 	}
 	for (int i = 0; i < this->num_of_elements; i++) {
+		if (this->storage[i] == value) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+/*
+Finds the last known index of an element
+*/
+template<class T>
+int ArrayList<T>::last_index_of(T value)
+{
+	if (value == NULL) {
+		for (int i = num_of_elements; i >= 0; i--) {
+			if (this->storage[i] == NULL) {
+				return i;
+			}
+		}
+	}
+	for (int i = num_of_elements; i >= 0; i--) {
 		if (this->storage[i] == value) {
 			return i;
 		}
