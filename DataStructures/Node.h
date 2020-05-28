@@ -24,6 +24,7 @@ template<class T>
 inline Node<T>::Node(T data)
 {
 	this->data = data;
+
 }
 
 template<class T>

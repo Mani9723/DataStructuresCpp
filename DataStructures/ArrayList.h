@@ -58,19 +58,19 @@ public:
 	/*Searches the list*/
 	bool contains(T value);
 	/*Sets value at a particular index*/
-	int set(int index, int value);
+	T set(int index, T value);
 	/*Returns a value from an index*/
-	int get(int index);
+	T get(int index);
 	/*Appends a value*/
-	bool add(int value);
+	bool add(T value);
 	/*Inserts a value at an index*/
-	void add(int index, int value);
+	void add(int index, T value);
 	/*Appends another list*/
 	void addAll(ArrayList<T> &list);
 	/*Inserts a list at an index*/
 	void addAll(ArrayList<T>& list, int index);
 	/*Removes a value at an index*/
-	int remove(int index);
+	T remove_value(int index);
 	/*Removes between given bounds*/
 	void remove_range(int start, int end);
 	/*Creates a sublist within the given inclusive bounds*/
@@ -266,10 +266,10 @@ bool ArrayList<T>::contains(T value)
  * @return original value at the index
  */
 template<class T>
-int ArrayList<T>::set(int index, int value)
+T ArrayList<T>::set(int index, T value)
 {
 	validate_range(index);
-	int oldItem = storage[index];
+	T oldItem = storage[index];
 	storage[index] = value;
 	return oldItem;
 }
@@ -280,7 +280,7 @@ int ArrayList<T>::set(int index, int value)
  * @return array[index]
  */
 template<class T>
-int ArrayList<T>::get(int index)
+T ArrayList<T>::get(int index)
 {
 	validate_range(index);
 	return storage[index];
@@ -294,7 +294,7 @@ int ArrayList<T>::get(int index)
  * @return true if successful
  */
 template<class T>
-bool ArrayList<T>::add(int value)
+bool ArrayList<T>::add(T value)
 {
 	if (this->num_of_elements == this->length_of_storage)
 	{
@@ -313,7 +313,7 @@ bool ArrayList<T>::add(int value)
  * @param value value to be inserted
  */
 template<class T>
-void ArrayList<T>::add(int index, int value)
+void ArrayList<T>::add(int index, T value)
 {
 	validate_range(index);
 
@@ -376,10 +376,10 @@ void ArrayList<T>::addAll(ArrayList<T>& list, int index)
  * @return old value.
  */
 template<class T>
-int ArrayList<T>::remove(int index)
+T ArrayList<T>::remove_value(int index)
 {
 	validate_range(index);
-	int oldItem = this->storage[index];
+	T oldItem = this->storage[index];
 
 	if (this->num_of_elements < ((1 / 3) * this->length_of_storage)) {
 		this->storage = grow_array(true);

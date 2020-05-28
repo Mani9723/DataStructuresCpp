@@ -141,6 +141,7 @@
     <ClInclude Include="ArrayList.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrayListTest.cpp" />
